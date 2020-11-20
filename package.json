@@ -1,0 +1,17 @@
+{
+  "name": "backend_smartcity",
+  "version": "1.0.0",
+  "description": "Immanager's API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "initDB": "node ./orm/initDB.js"
+  },
+  "author": "Clément Vandendaelen",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
+  }
+}
