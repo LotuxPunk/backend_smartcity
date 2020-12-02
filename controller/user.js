@@ -71,3 +71,22 @@ module.exports.loginUser = async (req, res) => {
         }
     }
 };
+
+module.exports.getUser = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        if (isNaN(id)) {
+            res.sendStatus(400);
+        } else {
+            const user = await UserORM.findOne({where: {id:id}, attributes: ['id', 'firstname', 'lastname', 'email']});
+            if (user !== null) {
+                res.json(user);
+            } else {
+                res.sendStatus(404);
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+}
