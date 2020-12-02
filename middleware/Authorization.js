@@ -1,6 +1,6 @@
 const ownerRole = "owner"
 
-module.exports.mustBeManager = (req, res, next) => {
+module.exports.mustBeOwner = (req, res, next) => {
     if(req.session !== undefined && req.session.authLevel === ownerRole){
         next();
     } else {
