@@ -3,11 +3,6 @@ const sequelize = require('../sequelize');
 
 class Apartment extends Model {}
 Apartment.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrementIdentity: true,
-        primaryKey: true,
-    },
     name: {
         type: DataTypes.STRING,
         allowNull: false

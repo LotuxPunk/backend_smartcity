@@ -2,14 +2,11 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 const User = require('./User');
 const Apartment = require('./Apartment');
+const Payment = require('./Payment');
+const RentOwed = require('./RentOwed');
 
 class Contract extends Model {}
 Contract.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrementIdentity: true,
-        primaryKey: true,
-    },
     date_start: { 
         type: DataTypes.DATE,
         allowNull: false
@@ -30,38 +27,43 @@ Contract.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    tenant: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-     
-        references: {
-          model: User,
-          key: 'id',
-        }
-    },
-    owner: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-     
-        references: {
-          model: User,
-          key: 'id',
-        }
-    },
-    apartment: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-     
-        references: {
-          model: Apartment,
-          key: 'id',
-        }
-    },
 },
 { 
     sequelize,
     modelName: 'contract',
     timestamps: false
 });
+
+Apartment.hasMany(Contract, {
+    foreignKey: {
+        name:"apartmentId",
+        allowNull:false
+    }
+});
+
+User.hasMany(Contract, {
+    foreignKey: {
+        name:"ownerId",
+        allowNull:false
+    }
+});
+
+User.hasOne(Contract, {
+    foreignKey:{
+        name:"tenantId",
+        allowNull:false
+    }
+});
+
+Contract.hasMany(RentOwed,{
+    foreignKey:{
+        allowNull:false
+    }
+});
+Contract.hasMany(Payment,{
+    foreignKey:{
+        allowNull:false
+    }
+})
 
 module.exports = Contract;
