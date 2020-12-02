@@ -1,9 +1,10 @@
 const sequelize = require('./sequelize');
 const User = require('./model/User');
 const Apartment = require('./model/Apartment');
-const Contract = require('./model/Contract');
 const Payment = require('./model/Payment');
 const RentOwed = require('./model/RentOwed');
+const Contract = require('./model/Contract');
+
 
 // let pu = User.sync({force : true})
 // let pa = Apartment.sync({force : true})

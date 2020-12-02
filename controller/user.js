@@ -7,10 +7,8 @@ module.exports.createUser = async (req, res) => {
     const body = req.body;
     const {email, password, firstname, lastname, register, address} = body;
 
-    console.debug(body)
-
     if (email === undefined || password === undefined || firstname === undefined || lastname === undefined || register === undefined || address === undefined) {
-        res.sendStatus(400)
+        res.sendStatus(400);
     }
     else {
         const hashPassword = await getHash(password);
@@ -77,7 +75,8 @@ module.exports.getUser = async (req, res) => {
     try {
         if (isNaN(id)) {
             res.sendStatus(400);
-        } else {
+        }
+        else {
             const user = await UserORM.findOne({where: {id:id}, attributes: ['id', 'firstname', 'lastname', 'email']});
             if (user !== null) {
                 res.json(user);
@@ -85,7 +84,8 @@ module.exports.getUser = async (req, res) => {
                 res.sendStatus(404);
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         res.sendStatus(500);
     }
