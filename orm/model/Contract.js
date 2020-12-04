@@ -12,24 +12,25 @@ class Contract extends Model {
         let balance = [];
 
         let addToBalance = (amount, date) => {
-            balance.push({ date : date.format(), amount });
+            balance.push({ date : date.format(pattern), amount });
         }
 
         let sortFunction = (a, b) => {
-            return moment(b.date, pattern).format('YYYYMMDD') - moment(a.date, pattern).format('YYYYMMDD')
+            return moment(b.date, pattern).valueOf() - moment(a.date, pattern).valueOf();
         }
 
         for (const [i, rent] of this.rentoweds.entries()) {
             let currDate = moment(rent.date, pattern);
+            const dateEnd = moment(this.date_end, pattern);
 
             if (i < this.rentoweds.length - 1) {
-                while (moment(currDate).isBefore(moment(this.rentoweds[i+1].date))) {
+                while (currDate.isBefore(moment(this.rentoweds[i+1].date))) {
                     addToBalance((parseFloat(rent.rent) + parseFloat(rent.charge)) * -1, currDate);
                     currDate.add(1, 'M');
                 }
             }
             else {
-                while (moment(currDate).isBefore(moment.now()) && moment(currDate).isBefore(this.date_end)){
+                while (currDate.isBefore(moment.now()) && currDate.isBefore(dateEnd)){
                     addToBalance((parseFloat(rent.rent) + parseFloat(rent.charge)) * -1, currDate);
                     currDate.add(1, 'M');                    
                 }
@@ -47,11 +48,23 @@ class Contract extends Model {
 Contract.init({
     date_start: { 
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        get() {
+            return moment(this.getDataValue('date_start')).format('DD-MM-YYYY');
+        },
+        set(value) {
+            this.setDataValue("date_start", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY')); 
+        }
     },
     date_end: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
+        get() {
+            return moment(this.getDataValue('date_end')).format('DD-MM-YYYY')
+        },
+        set(value) {
+            this.setDataValue("date_end", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY'));
+        }
     },
     waranty: {
         type: DataTypes.DECIMAL(10,2),
