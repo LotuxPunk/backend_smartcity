@@ -14,7 +14,7 @@ module.exports.identification = async (req, res, next) => {
         }
         catch (e) {
             console.log(e);
-            res.sendStatus(400);
+            res.sendStatus(401);
         }
     } else {
         res.sendStatus(401);

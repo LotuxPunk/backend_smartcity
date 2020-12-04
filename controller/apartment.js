@@ -9,10 +9,10 @@ module.exports.getApartment = async (req, res) => {
         }
         else{
            const apartment = await ApartmentORM.findOne({where:{id:id}, include : {
-               model: Contract
+               model: Contract,
            }});
            if (apartment !== null) {
-            res.json(apartment);
+                res.json(apartment);
             }
             else {
                 res.sendStatus(404);
