@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
+const moment = require('moment');
 
 class RentOwed extends Model {}
 RentOwed.init({
@@ -13,7 +14,13 @@ RentOwed.init({
     },
     date: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        get() {
+            return moment(this.getDataValue('date')).format('DD-MM-YYYY')
+        },
+        set(value) {
+            this.setDataValue("date", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY')); 
+        }
     }
 },
 { 
