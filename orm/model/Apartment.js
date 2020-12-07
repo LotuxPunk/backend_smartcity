@@ -19,6 +19,10 @@ Apartment.init({
         type: DataTypes.STRING(4),
         allowNull: false
     },
+    image:{
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 },
 { 
     sequelize,

@@ -11,7 +11,8 @@ const Contract = require('./model/Contract');
 
 // Promise.all([pu, pa]).then((values) => Contract.sync({force : true}));
 
-sequelize.sync({force : true});
+sequelize
+    .sync({force : true});
 
 
 

@@ -27,7 +27,9 @@ module.exports.getApartment = async (req, res) => {
 
 module.exports.addApartment = async (req, res) => {
     const body = req.body;
+    const image = req.file
     const {name, city, address, postal_code} = body;
+    
 
     if (name === undefined || city === undefined || address === undefined || postal_code === undefined){
         res.sendStatus(400);
@@ -38,7 +40,8 @@ module.exports.addApartment = async (req, res) => {
                 name,
                 city,
                 address,
-                postal_code
+                postal_code,
+                image : image ? image.filename : null
             });
             res.sendStatus(201);
         }
