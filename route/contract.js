@@ -7,5 +7,6 @@ const router = new Router;
 //router.get("/:id", identification, ApartmentController.getApartment);
 router.post("/", identification, mustBeOwner, ContractController.addContract);
 router.get("/:id", identification, mustBeOwner, ContractController.getContract);
+router.get("/", identification, mustBeOwner, ContractController.getContracts);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const Apartment = require('./Apartment');
 const Payment = require('./Payment');
 const RentOwed = require('./RentOwed');
 const moment = require('moment');
+const Tenant = require('./Tenant');
 
 class Contract extends Model {
     get balance() {
@@ -94,14 +95,12 @@ Apartment.hasMany(Contract, {
 
 User.hasMany(Contract, {
     foreignKey: {
-        name:"ownerId",
         allowNull:false
     }
 });
 
-User.hasOne(Contract, {
+Tenant.hasMany(Contract, {
     foreignKey:{
-        name:"tenantId",
         allowNull:false
     }
 });

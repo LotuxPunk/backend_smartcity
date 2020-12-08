@@ -47,7 +47,7 @@ module.exports.loginUser = async (req, res) => {
                         process.env.SECRET_TOKEN,
                         {expiresIn: '1d'}
                     );
-                    res.json(token);
+                    res.json({jwt : token});
                 }
                 else{
                     const payload = {status: "tenant", value: {id, firstname, lastname}};
@@ -56,7 +56,7 @@ module.exports.loginUser = async (req, res) => {
                         process.env.SECRET_TOKEN,
                         {expiresIn: '1d'}
                     );
-                    res.json(token);
+                    res.json({jwt : token});
                 }                
             }
             else{
