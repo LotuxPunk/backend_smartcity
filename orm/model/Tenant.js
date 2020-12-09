@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
+const User = require('./User');
 
 class Tenant extends Model {}
 Tenant.init({
@@ -25,5 +26,7 @@ Tenant.init({
     sequelize,
     modelName: 'tenant'
 });
+
+User.hasMany(Tenant);
 
 module.exports = Tenant;
