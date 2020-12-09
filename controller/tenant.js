@@ -33,12 +33,12 @@ module.exports.getTenants = async (req, res) => {
             res.sendStatus(400)
         }
         else{
-            let tenants = await TenantORM.findOne({
+            let tenants = await TenantORM.findAll({
                 where:
                     {userId:id}
             });
-           if (contract !== null) {
-               res.json({tenants});
+           if (tenants !== null) {
+               res.json(tenants);
             }
             else {
                 res.sendStatus(404);
