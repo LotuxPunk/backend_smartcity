@@ -49,23 +49,11 @@ class Contract extends Model {
 Contract.init({
     date_start: { 
         type: DataTypes.DATE,
-        allowNull: false,
-        get() {
-            return moment(this.getDataValue('date_start')).format('DD-MM-YYYY');
-        },
-        set(value) {
-            this.setDataValue("date_start", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY')); 
-        }
+        allowNull: false
     },
     date_end: {
         type: DataTypes.DATE,
-        allowNull: true,
-        get() {
-            return moment(this.getDataValue('date_end')).format('DD-MM-YYYY')
-        },
-        set(value) {
-            this.setDataValue("date_end", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY'));
-        }
+        allowNull: true
     },
     waranty: {
         type: DataTypes.DECIMAL(10,2),
@@ -104,6 +92,7 @@ Tenant.hasMany(Contract, {
         allowNull:false
     }
 });
+Contract.belongsTo(Tenant);
 
 Contract.hasMany(RentOwed,{
     foreignKey:{

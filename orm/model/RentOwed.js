@@ -14,13 +14,7 @@ RentOwed.init({
     },
     date: {
         type: DataTypes.DATE,
-        allowNull: false,
-        get() {
-            return moment(this.getDataValue('date')).format('DD-MM-YYYY')
-        },
-        set(value) {
-            this.setDataValue("date", moment(value, 'DD-MM-YYYY').format('MM-DD-YYYY')); 
-        }
+        allowNull: false
     }
 },
 { 
