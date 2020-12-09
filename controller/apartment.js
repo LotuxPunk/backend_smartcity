@@ -1,5 +1,4 @@
 const ApartmentORM = require("../orm/model/Apartment");
-const Contract = require("../orm/model/Contract");
 
 module.exports.getApartments = async (req, res) => {
     const id = parseInt(req.session.id);
@@ -8,9 +7,7 @@ module.exports.getApartments = async (req, res) => {
             res.sendStatus(400)
         }
         else{
-           const apartments = await ApartmentORM.findAll({where:{userId:id}, include : {
-               model: Contract,
-           }});
+           const apartments = await ApartmentORM.findAll({where:{userId:id}});
            if (apartments !== null) {
                 res.json(apartments);
             }

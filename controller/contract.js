@@ -85,10 +85,15 @@ module.exports.getContracts = async (req, res) => {
         else{
             let contracts = await ContractORM.findAll({
                 where:
-                    {userId:id}
+                    {userId:id},
+                include: [
+                    {
+                        model:Tenant
+                    }
+                ]
             });
            if (contracts !== null) {
-               res.json({contracts});
+               res.json(contracts);
             }
             else {
                 res.sendStatus(404);
