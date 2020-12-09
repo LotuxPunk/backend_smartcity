@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
+const User = require('./User');
 
 class Apartment extends Model {}
 Apartment.init({
@@ -29,5 +30,7 @@ Apartment.init({
     modelName: 'apartment',
     timestamps: false
 })
+
+User.hasMany(Apartment);
 
 module.exports = Apartment;

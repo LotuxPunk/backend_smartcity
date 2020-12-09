@@ -1,18 +1,18 @@
 const ApartmentORM = require("../orm/model/Apartment");
 const Contract = require("../orm/model/Contract");
 
-module.exports.getApartment = async (req, res) => {
-    const id = parseInt(req.params.id);
+module.exports.getApartments = async (req, res) => {
+    const id = parseInt(req.session.id);
     try{
         if(isNaN(id)){
             res.sendStatus(400)
         }
         else{
-           const apartment = await ApartmentORM.findOne({where:{id:id}, include : {
+           const apartments = await ApartmentORM.findAll({where:{userId:id}, include : {
                model: Contract,
            }});
-           if (apartment !== null) {
-                res.json(apartment);
+           if (apartments !== null) {
+                res.json(apartments);
             }
             else {
                 res.sendStatus(404);
@@ -29,9 +29,10 @@ module.exports.addApartment = async (req, res) => {
     const body = req.body;
     const image = req.file
     const {name, city, address, postal_code} = body;
+    const id = parseInt(req.session.id);
     
 
-    if (name === undefined || city === undefined || address === undefined || postal_code === undefined){
+    if (name === undefined || city === undefined || address === undefined || postal_code === undefined || isNaN(id)){
         res.sendStatus(400);
     }
     else{
@@ -41,7 +42,8 @@ module.exports.addApartment = async (req, res) => {
                 city,
                 address,
                 postal_code,
-                image : image ? image.filename : null
+                image : image ? image.filename : null,
+                userId : id
             });
             res.sendStatus(201);
         }

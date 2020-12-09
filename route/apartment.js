@@ -22,7 +22,7 @@ const upload = multer({
     storage:storage
 });
 
-router.get("/:id", identification, mustBeOwner, ApartmentController.getApartment);
+router.get("/", identification, mustBeOwner, ApartmentController.getApartments);
 router.post("/", identification, mustBeOwner, upload.single("image"), ApartmentController.addApartment);
 
 module.exports = router;
