@@ -9,7 +9,7 @@ const Tenant = require('./Tenant');
 
 class Contract extends Model {
     get balance() {
-        const pattern = "DD-MM-YYYY";
+        const pattern = "YYYY-MM-DD";
         let balance = [];
 
         let addToBalance = (amount, date) => {
@@ -80,6 +80,7 @@ Apartment.hasMany(Contract, {
         allowNull:false
     }
 });
+Contract.belongsTo(Apartment);
 
 User.hasMany(Contract, {
     foreignKey: {

@@ -1,3 +1,4 @@
+const Apartment = require("../orm/model/Apartment");
 const ContractORM = require("../orm/model/Contract");
 const Payment = require("../orm/model/Payment");
 const RentOwedORM = require("../orm/model/RentOwed");
@@ -58,6 +59,12 @@ module.exports.getContract = async (req, res) => {
                     },
                     {
                         model: Payment
+                    },
+                    {
+                        model:Tenant
+                    },
+                    {
+                        model:Apartment
                     }
                 ]
             });
@@ -89,6 +96,9 @@ module.exports.getContracts = async (req, res) => {
                 include: [
                     {
                         model:Tenant
+                    },
+                    {
+                        model:Apartment
                     }
                 ]
             });
