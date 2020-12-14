@@ -3,7 +3,7 @@ const ContractORM = require("../orm/model/Contract");
 const Payment = require("../orm/model/Payment");
 const RentOwedORM = require("../orm/model/RentOwed");
 const Tenant = require("../orm/model/Tenant");
-const User = require("../orm/model/User");
+const sequelize = require('../orm/sequelize');
 
 module.exports.addContract = async (req, res) => {
     const body = req.body;
@@ -13,6 +13,8 @@ module.exports.addContract = async (req, res) => {
         res.sendStatus(400);
     }
     else{
+        const t = await sequelize.transaction();
+        
         try {
 
             //TODO Use transaction
@@ -26,18 +28,22 @@ module.exports.addContract = async (req, res) => {
                 apartmentId,
                 userId,
                 tenantId
-            });
+            }, { transaction : t });
 
             await RentOwedORM.create({
                 rent,
                 charge,
                 date:date_start,
                 contractId:contrat.id
-            })
+            }, { transaction : t });
+
+            await t.commit();
+
             res.sendStatus(201);
         }
         catch(error){
             console.error(error);
+            await t.rollback();
             res.sendStatus(500);
         }
     }
