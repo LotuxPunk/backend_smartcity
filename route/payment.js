@@ -5,5 +5,6 @@ const { mustBeOwner } = require("../middleware/Authorization");
 const router = new Router;
 
 router.post("/", identification, mustBeOwner, PaymentController.addPayment);
+router.delete("/:id", identification, mustBeOwner, PaymentController.deletePayment);
 
 module.exports = router;

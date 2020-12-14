@@ -22,3 +22,25 @@ module.exports.addPayment = async (req, res) => {
         }
     }
 }
+
+module.exports.deletePayment = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try{
+        if(isNaN(id)){
+            res.sendStatus(400)
+        }
+        else{
+            
+           await PaymentORM.destroy({
+               where:{
+                   id:id
+               }
+           });
+           res.sendStatus(201);
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+}

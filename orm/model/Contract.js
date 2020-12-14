@@ -12,8 +12,8 @@ class Contract extends Model {
         const pattern = "YYYY-MM-DD";
         let balance = [];
 
-        let addToBalance = (amount, date) => {
-            balance.push({ date : date.format(pattern), amount });
+        let addToBalance = (amount, date, id = 0) => {
+            balance.push({ date : date.format(pattern), amount, id });
         }
 
         let sortFunction = (a, b) => {
@@ -40,7 +40,7 @@ class Contract extends Model {
 
         for (const payment of this.payments) {
             let currDate = moment(payment.date, pattern);
-            addToBalance(payment.amount, currDate);
+            addToBalance(payment.amount, currDate, payment.id);
         }
 
         return balance.sort(sortFunction);
