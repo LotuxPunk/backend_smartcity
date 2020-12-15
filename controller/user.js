@@ -3,6 +3,39 @@ const {getHash, compareHash} = require("../utils/utils");
 const jwt = require('jsonwebtoken');
 const process = require('process');
 
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          UserCree:
+ *              description: l'utilisateur a été ajouté à la base de données
+ *      requestBodies:
+ *          UserACreer:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              address:
+ *                                  type: string
+ *                              lastname:
+ *                                  type: string
+ *                              firstname:
+ *                                  type: string
+ *                              email:
+ *                                  type: string
+ *                              register:
+ *                                  type: string
+ *                              password:
+ *                                  type: string
+ *                                  format: password
+ *                          required:
+ *                              - lastname
+ *                              - firstname
+ *                              - address
+ *                              - password
+ *                              - email
+ *                              - register
+ */
 module.exports.createUser = async (req, res) => {
     const body = req.body;
     const {email, password, firstname, lastname, register, address} = body;
@@ -30,6 +63,22 @@ module.exports.createUser = async (req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Login:
+ *          type: object
+ *          properties:
+ *              email:
+ *                  type: string
+ *              password:
+ *                  type: string
+ *                  format: password
+ *          required:
+ *              - email
+ *              - password
+ */
 module.exports.loginUser = async (req, res) => {
     const {email, password} = req.body;
     if(email === undefined && password == undefined){
@@ -70,23 +119,23 @@ module.exports.loginUser = async (req, res) => {
     }
 };
 
-module.exports.getUser = async (req, res) => {
-    const id = parseInt(req.params.id);
-    try {
-        if (isNaN(id)) {
-            res.sendStatus(400);
-        }
-        else {
-            const user = await UserORM.findOne({where: {id:id}, attributes: ['id', 'firstname', 'lastname', 'email']});
-            if (user !== null) {
-                res.json(user);
-            } else {
-                res.sendStatus(404);
-            }
-        }
-    }
-    catch (error) {
-        console.error(error);
-        res.sendStatus(500);
-    }
-}
+// module.exports.getUser = async (req, res) => {
+//     const id = parseInt(req.params.id);
+//     try {
+//         if (isNaN(id)) {
+//             res.sendStatus(400);
+//         }
+//         else {
+//             const user = await UserORM.findOne({where: {id:id}, attributes: ['id', 'firstname', 'lastname', 'email']});
+//             if (user !== null) {
+//                 res.json(user);
+//             } else {
+//                 res.sendStatus(404);
+//             }
+//         }
+//     }
+//     catch (error) {
+//         console.error(error);
+//         res.sendStatus(500);
+//     }
+// }

@@ -29,7 +29,54 @@ const upload = multer({
     }
 });
 
+/**
+ * @swagger
+ * /apartment:
+ *  get:
+ *      tags:
+ *         - Apartment
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *          200:
+ *              $ref: '#/components/responses/ApartmentsFound'
+ *          400:
+ *              $ref: '#/components/responses/ErrorJWT'
+ *          401:
+ *              $ref: '#/components/responses/MissingJWT'
+ *          403:
+ *              $ref: '#/components/responses/mustBeOwner'
+ *          404:
+ *              description: Appartements non trouvé
+ *          500:
+ *              description: Erreur serveur
+ *
+ */
 router.get("/", identification, mustBeOwner, ApartmentController.getApartments);
+
+/**
+ * @swagger
+ * /apartment:
+ *  post:
+ *      tags:
+ *          - Apartment
+ *      security:
+ *          - bearerAuth: []
+ *      requestBody:
+ *          $ref: '#/components/requestBodies/AppartementACreer'
+ *      responses:
+ *          201:
+ *              $ref: '#/components/responses/AppartementCree'
+ *          400:
+ *              $ref: '#/components/responses/ErrorJWT'
+ *          401:
+ *              $ref: '#/components/responses/MissingJWT'
+ *          403:
+ *              $ref: '#/components/responses/mustBeOwner'
+ *          500:
+ *              description: Erreur serveur
+ *
+ */
 router.post("/", identification, mustBeOwner, upload.single("image"), ApartmentController.addApartment);
 
 module.exports = router;

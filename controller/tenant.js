@@ -1,5 +1,19 @@
 const TenantORM = require("../orm/model/Tenant");
 
+/**
+ *@swagger
+ *components:
+ *  responses:
+ *      LocataireCree:
+ *          description: le locataire a été créé
+ *  requestBodies:
+ *      LocataireACreer:
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Tenant'
+ */
+
 module.exports.addTenant = async (req, res) => {
     const body = req.body;
     const { firstname, lastname, register, address} = body;
@@ -26,6 +40,19 @@ module.exports.addTenant = async (req, res) => {
     }
 }
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      TenantsFound:
+ *           description: renvoie une liste de locataire
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: array
+ *                       items:
+ *                          $ref: '#/components/schemas/Tenant'
+ */
 module.exports.getTenants = async (req, res) => {
     const id = parseInt(req.session.id);
     try{

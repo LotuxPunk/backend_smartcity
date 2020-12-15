@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "initDB": "node ./orm/initDB.js"
+    "initDB": "node ./orm/initDB.js",
+    "genDoc" : "node ./swagger/swagger_jsdoc.js"
   },
   "author": "Clément Vandendaelen",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "mysql2": "^2.2.5",
     "process": "^0.11.10",
     "sequelize": "^6.3.5",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "swagger-jsdoc": "^6.0.0-rc.4"
   }
 }

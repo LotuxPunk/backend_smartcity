@@ -2,6 +2,38 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 const User = require('./User');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Apartment:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: integer
+ *                  readOnly: true
+ *              name:
+ *                  type: string
+ *                  description: Nom de l'appartement
+ *              city:
+ *                  type: string
+ *                  description: Ville
+ *              address:
+ *                  type: string
+ *                  description: Adresse de l'appartement
+ *              postal_code:
+ *                  type: string
+ *                  maxLength: 4
+ *                  minLength: 4
+ *                  description: Code postal
+ *              image:
+ *                  type: string
+ *                  format: binary
+ *                  nullable: true
+ *                  description: Nom du fichier image
+ *
+ */
+
 class Apartment extends Model {}
 Apartment.init({
     name: {

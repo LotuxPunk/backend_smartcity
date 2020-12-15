@@ -1,5 +1,18 @@
 const ApartmentORM = require("../orm/model/Apartment");
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      ApartmentsFound:
+ *           description: renvoie une liste d'appartement
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: array
+ *                       items:
+ *                          $ref: '#/components/schemas/Apartment'
+ */
 module.exports.getApartments = async (req, res) => {
     const id = parseInt(req.session.id);
     try{
@@ -22,6 +35,19 @@ module.exports.getApartments = async (req, res) => {
     }
 }
 
+/**
+ *@swagger
+ *components:
+ *  responses:
+ *      AppartementCree:
+ *          description: l'appartement a été créé
+ *  requestBodies:
+ *      AppartementACreer:
+ *          content:
+ *              multipart/form-data::
+ *                  schema:
+ *                      $ref: '#/components/schemas/Apartment'
+ */
 module.exports.addApartment = async (req, res) => {
     const body = req.body;
     const image = req.file

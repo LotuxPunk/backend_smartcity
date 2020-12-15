@@ -1,5 +1,18 @@
 const PaymentORM = require("../orm/model/Payment");
 
+/**
+ *@swagger
+ *components:
+ *  responses:
+ *      PaiementCree:
+ *          description: le paiement a été créé
+ *  requestBodies:
+ *      PaiementACreer:
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Payment'
+ */
 module.exports.addPayment = async (req, res) => {
     const body = req.body;
     const {amount, date, contractId} = body;
@@ -23,6 +36,13 @@ module.exports.addPayment = async (req, res) => {
     }
 }
 
+/**
+ *@swagger
+ *components:
+ *  responses:
+ *      PaymentDeleted:
+ *          description: le paiement a été supprimé
+ */
 module.exports.deletePayment = async (req, res) => {
     const id = parseInt(req.params.id);
     try{
