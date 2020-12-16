@@ -7,6 +7,42 @@ const RentOwed = require('./RentOwed');
 const moment = require('moment');
 const Tenant = require('./Tenant');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      ContractModel:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: integer
+ *                  readOnly: true
+ *              waranty:
+ *                  type: number
+ *                  format: double
+ *                  description: Montant de la garantie
+ *              cpas_waranty:
+ *                  type: boolean
+ *                  description: La garantie est fournie par le CPAS
+ *              date_start:
+ *                  type: string
+ *                  format: date
+ *                  description: Date de début du contrat
+ *              date_end:
+ *                  type: string
+ *                  format: date
+ *                  description: Date de fin du contrat
+ *              ref_contract:
+ *                  type: string
+ *                  nullable: true
+ *                  description: Référence d'enregistrement d'un contrat
+ *              tenantId:
+ *                  type: integer
+ *              apartmentId:
+ *                  type: integer
+ *
+ */
+
 class Contract extends Model {
     get balance() {
         const pattern = "YYYY-MM-DD";

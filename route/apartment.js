@@ -79,4 +79,36 @@ router.get("/", identification, mustBeOwner, ApartmentController.getApartments);
  */
 router.post("/", identification, mustBeOwner, upload.single("image"), ApartmentController.addApartment);
 
+/**
+ * @swagger
+ * /apartment/{id}:
+ *  get:
+ *      tags:
+ *         - Apartment
+ *      parameters:
+ *          - name: id
+ *            description: ID d'un contrat
+ *            in: path
+ *            required: true
+ *            schema:
+ *              type: integer
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *          200:
+ *              $ref: '#/components/responses/ApartmentFound'
+ *          400:
+ *              $ref: '#/components/responses/ErrorJWT'
+ *          401:
+ *              $ref: '#/components/responses/MissingJWT'
+ *          403:
+ *              $ref: '#/components/responses/mustBeOwner'
+ *          404:
+ *              description: Appartement non trouvé
+ *          500:
+ *              description: Erreur serveur
+ *
+ */
+router.get("/:id", identification, mustBeOwner, ApartmentController.getApartment);
+
 module.exports = router;
