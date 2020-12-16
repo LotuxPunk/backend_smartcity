@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'immanager'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c8cd34c20082468e863c9fd4c44d1caf }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_de1d78ace6a54e538f926e6d0fdb2138 }}
         package: .
