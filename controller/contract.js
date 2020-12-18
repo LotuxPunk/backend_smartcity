@@ -59,12 +59,14 @@ module.exports.addContract = async (req, res) => {
     if (date_start === undefined || date_end === undefined || waranty === undefined || cpas_waranty === undefined || ref_contract === undefined || apartmentId === undefined || tenantId === undefined) {
         res.sendStatus(400);
     }
+    else if(date_start > date_end){
+        res.sendStatus(409);
+    }
     else{
         const t = await sequelize.transaction();
         
         try {
 
-            //TODO Use transaction
             const userId = req.session.id;
             let contrat = await ContractORM.create({
                 date_start,
