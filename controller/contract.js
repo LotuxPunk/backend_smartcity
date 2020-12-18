@@ -56,7 +56,10 @@ module.exports.addContract = async (req, res) => {
     const body = req.body;
     const { date_start, date_end, waranty, cpas_waranty, ref_contract, apartmentId, tenantId, rent, charge } = body;
 
-    if (date_start === undefined || date_end === undefined || waranty === undefined || cpas_waranty === undefined || ref_contract === undefined || apartmentId === undefined || tenantId === undefined) {
+    if (date_start === undefined || date_end === undefined || waranty === undefined || cpas_waranty === undefined || ref_contract === undefined || apartmentId === undefined || tenantId === undefined || rent === undefined || charge === undefined) {
+        res.sendStatus(400);
+    }
+    else if(waranty < 0 || rent < 0 || charge < 0){
         res.sendStatus(400);
     }
     else if(date_start > date_end){

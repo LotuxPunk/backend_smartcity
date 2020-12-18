@@ -20,6 +20,9 @@ module.exports.addPayment = async (req, res) => {
     if (amount === undefined || date === undefined || contractId === undefined) {
         res.sendStatus(400);
     }
+    else if (amount <= 0) {
+        res.sendStatus(400);
+    }
     else {
         try {
             await PaymentORM.create({

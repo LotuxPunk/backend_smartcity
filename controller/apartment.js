@@ -134,6 +134,9 @@ module.exports.addApartment = async (req, res) => {
     if (name === undefined || city === undefined || address === undefined || postal_code === undefined || isNaN(id)){
         res.sendStatus(400);
     }
+    else if(postal_code.length !== 4){
+        res.sendStatus(400);
+    }
     else{
         try {
             await ApartmentORM.create({
